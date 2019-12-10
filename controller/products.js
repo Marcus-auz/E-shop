@@ -1,4 +1,4 @@
-const products = [];
+const Product=require('../models/product');
 
 exports.getAddProduct= (req, res, next) => {
     res.render('add-product', {
@@ -11,18 +11,20 @@ exports.getAddProduct= (req, res, next) => {
 };
 
 exports.postAddProduct=(req, res, next) => {
-    products.push({ title: req.body.title });
-    res.redirect('/');
+  const product =new Product(req.body.title);
+  product.save(); //will push it in the array defined in the models 
+  res.redirect('/');
 };
 
 exports.getProduct= (req, res, next) => {
-   // const products = adminData.products; (no need since its already declared here)
-    res.render('shop', {
-      prods: products,
-      pageTitle: 'Shop',
-      path: '/',
-      hasProducts: products.length > 0,
-      activeShop: true,
-      productCSS: true
-    });
+  // const products = adminData.products; (no need since its already declared here)
+  const products =Product.fecthAll(); //gives all products
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
+  });
 };
