@@ -8,7 +8,9 @@ const PORT=3000;
 const adminroutes=require('./routes/admin');
 const shoproutes=require('./routes/shop');
 
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.urlencoded({extended:false}));
+//serving file statically ignores routes and middleware to handle that and directly server that file
+app.use(express.static(path.join(__dirname,'public')));
 app.use('/admin'.adminroutes);
 app.use('',shoproutes);
 
