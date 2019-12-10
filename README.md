@@ -1,2 +1,0 @@
-# E-shop
-Shooping website 
